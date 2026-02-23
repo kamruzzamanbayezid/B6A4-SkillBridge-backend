@@ -10,7 +10,7 @@ router.post(
   auth(UserRole.ADMIN),
   categoryController.createCategory,
 );
-router.post("/all-category", categoryController.getALlCategories);
+router.get("/", categoryController.getALlCategories);
 router.delete(
   "/delete-category/:categoryId",
   auth(UserRole.ADMIN),

@@ -6,8 +6,6 @@ import globalErrorHandler from "./middlewares/globalErrorHandler";
 import cookieParser from "cookie-parser";
 import config from "./config";
 import { categoryRouter } from "./modules/category/categoryRoutes";
-import auth from "./middlewares/auth";
-import { UserRole } from "../generated/prisma/enums";
 
 const app = express();
 
@@ -21,7 +19,8 @@ app.use(
 );
 
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/tutors");
 
 app.get("/", (req, res) => {
   res.send("SkillBridge app for learners!!");

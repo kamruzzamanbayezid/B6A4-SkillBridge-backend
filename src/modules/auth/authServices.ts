@@ -1,21 +1,41 @@
 import bcrypt from "bcryptjs";
-import { User } from "../../../generated/prisma/client";
+import { User, UserRole } from "../../../generated/prisma/client";
 import config from "../../config";
 import { prisma } from "../../lib/prisma";
 import jwt from "jsonwebtoken";
 
-const createUser = async (
-  payload: Omit<User, "id" | "updatedAt" | "createdAt">,
-) => {
-  const hashedPassword = await bcrypt.hash(payload?.password, 8);
+const createUser = async (payload: any) => {
+  const { password, tutorProfile, ...userData } = payload;
 
-  const result = await prisma.user.create({
-    data: { ...payload, password: hashedPassword },
+  const hashedPassword = await bcrypt.hash(password, 8);
+
+  return await prisma.$transaction(async (tx) => {
+    const newUser = await tx.user.create({
+      data: { ...userData, password: hashedPassword },
+    });
+
+    if (payload?.role === UserRole.TUTOR) {
+      if (!tutorProfile || !tutorProfile.categoryId) {
+        throw new Error(
+          "If you register as a tutor you must provide category name and subject",
+        );
+      }
+
+      await tx.tutorProfile.create({
+        data: {
+          subject: tutorProfile?.subject,
+          categoryId: tutorProfile?.categoryId,
+          userId: newUser?.id,
+          bio: tutorProfile?.bio || "",
+          hourlyRate: tutorProfile?.hourlyRate || 0,
+        },
+      });
+    }
+
+    const { password, ...user } = newUser;
+
+    return user;
   });
-
-  const { password, ...newResult } = result;
-
-  return newResult;
 };
 
 const loginUser = async (payload: { email: string; password: string }) => {
