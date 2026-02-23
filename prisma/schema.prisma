@@ -19,11 +19,6 @@ enum BookingStatus {
   CANCELLED
 }
 
-enum UserStatus {
-  ACTIVE
-  BANNED
-}
-
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -33,14 +28,30 @@ model User {
   isBanned Boolean  @default(false)
   image    String?
 
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  tutorsProfiles TutorProfile?
-  bookings       Booking[]
-  reviews        Review[]
+  tutorProfile TutorProfile?
+
+  studentBookings Booking[] @relation("StudentBookings")
+  tutorBookings   Booking[] @relation("TutorBookings")
+
+  reviewsGiven    Review[] @relation("StudentReviews")
+  reviewsReceived Review[] @relation("TutorReviews")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([isBanned])
   @@map("users")
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  tutors TutorProfile[]
+
+  createdAt DateTime @default(now())
+
+  @@map("categories")
 }
 
 model TutorProfile {
@@ -49,65 +60,83 @@ model TutorProfile {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  bio          String
-  subject      String
-  availability Boolean @default(true)
-  hourlyRate   Float
+  bio             String
+  subject         String
+  experienceYears Int
+  hourlyRate      Decimal @db.Decimal(10, 2)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  bookings  Booking[]
-  reviews   Review[]
+  availabilitySlots Availability[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([subject])
   @@index([categoryId])
   @@map("tutor_profiles")
 }
 
-model Category {
-  id            String         @id @default(uuid())
-  name          String         @unique
-  tutorsProfile TutorProfile[]
+model Availability {
+  id String @id @default(uuid())
 
-  @@map("categories")
+  tutorId String
+  tutor   TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+
+  day       String
+  startTime DateTime
+  endTime   DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([tutorId])
+  @@map("availability")
 }
 
 model Booking {
   id String @id @default(uuid())
 
   studentId String
-  user      User   @relation(fields: [studentId], references: [id])
+  student   User   @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
 
   tutorId String
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
+  tutor   User   @relation("TutorBookings", fields: [tutorId], references: [id], onDelete: Cascade)
 
-  startTime   DateTime
-  endTime     DateTime
-  bookingDate DateTime      @default(now())
-  status      BookingStatus @default(CONFIRMED)
-  totalPrice  Float
+  startTime DateTime
+  endTime   DateTime
+
+  status     BookingStatus @default(CONFIRMED)
+  totalPrice Decimal       @db.Decimal(10, 2)
+
+  review Review?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([tutorId, startTime, endTime])
+  @@index([studentId])
+  @@index([tutorId])
   @@map("bookings")
 }
 
 model Review {
-  id      String @id @default(uuid())
-  rating  Int
-  comment String
+  id String @id @default(uuid())
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   User   @relation("StudentReviews", fields: [studentId], references: [id], onDelete: Cascade)
 
   tutorId String
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
+  tutor   User   @relation("TutorReviews", fields: [tutorId], references: [id], onDelete: Cascade)
+
+  rating  Int
+  comment String?
 
   createdAt DateTime @default(now())
 
+  @@index([tutorId])
   @@map("reviews")
 }
