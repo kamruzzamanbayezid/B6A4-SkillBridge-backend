@@ -3,7 +3,7 @@ import config from "./config";
 import { prisma } from "./lib/prisma";
 
 const main = async () => {
-  const port = config.port || 3000;
+  const port = config.port || 5000;
 
   try {
     await prisma.$connect();

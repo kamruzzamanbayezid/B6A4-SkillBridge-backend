@@ -62,8 +62,10 @@ model TutorProfile {
 
   bio             String
   subject         String
-  experienceYears Int
+  experienceYears Int @default(0)
   hourlyRate      Decimal @db.Decimal(10, 2)
+  averageRating   Decimal  @default(0.0) @db.Decimal(3, 2)
+  reviewCount     Int      @default(0)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)

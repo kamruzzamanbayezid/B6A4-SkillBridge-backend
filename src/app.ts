@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import config from "./config";
 import { categoryRouter } from "./modules/category/categoryRoutes";
 import { tutorProfileRoutes } from "./modules/tutorProfile/tutorProfileRoutes";
+import { UserRoutes } from "./modules/user/userRoutes";
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: config.backend_url,
+    origin: config.frontend_url,
     credentials: true,
   }),
 );
@@ -22,6 +23,7 @@ app.use(
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/tutors", tutorProfileRoutes);
+app.use("/api/v1/users", UserRoutes);
 
 app.get("/", (req, res) => {
   res.send("SkillBridge app for learners!!");

@@ -8,4 +8,5 @@ export default {
   database_url: process.env.DATABASE_URL,
   jwt_secret: process.env.JWT_SECRET,
   backend_url: process.env.BACKEND_URL,
+  frontend_url: process.env.FRONTEND_URL,
 };

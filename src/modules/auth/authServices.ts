@@ -57,7 +57,9 @@ const loginUser = async (payload: { email: string; password: string }) => {
     id: user?.id,
     name: user?.name,
     email: user?.email,
+    image: user?.image,
     role: user?.role,
+    isBanned: user?.isBanned,
   };
 
   if (!config?.jwt_secret) {
