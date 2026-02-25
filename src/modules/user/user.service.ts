@@ -1,19 +1,70 @@
+import { UserRole } from "../../../generated/prisma/enums";
+import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
-interface GetAllUsersPayload {
-  searchTerm?: string | undefined;
-}
+const getAllTutors = async (query: any) => {
+  const { search, category, rating, price } = query;
 
-const getAllUsers = async (payload: GetAllUsersPayload) => {
+  let andConditions: UserWhereInput[] = [];
+
+  if (search) {
+    andConditions.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        {
+          tutorProfile: { subject: { contains: search, mode: "insensitive" } },
+        },
+      ],
+    });
+  }
+
+  if (category) {
+    andConditions.push({
+      tutorProfile: { category: category },
+    });
+  }
+
+  if (rating) {
+    andConditions.push({
+      tutorProfile: { averageRating: { gte: Number(rating) } },
+    });
+  }
+
+  if (price) {
+    andConditions.push({
+      tutorProfile: { hourlyRate: { lte: Number(price) } },
+    });
+  }
+
   const result = await prisma.user.findMany({
     where: {
-      role: payload?.role,
+      role: "TUTOR",
+      AND: andConditions,
+    },
+    include: { tutorProfile: true },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return result;
+};
+
+const getAllUsersOrRole = async (role: UserRole) => {
+  const result = await prisma.user.findMany({
+    where: {
+      role: role,
+    },
+    include: {
+      tutorProfile: true,
+    },
+    orderBy: {
+      tutorProfile: {
+        averageRating: "asc",
+      },
     },
   });
   return result;
 };
 
-// Get specific count for students
 const getStudentCount = async () => {
   const count = await prisma.user.count({
     where: {
@@ -24,6 +75,7 @@ const getStudentCount = async () => {
 };
 
 export const UserServices = {
-  getAllUsers,
+  getAllTutors,
   getStudentCount,
+  getAllUsersOrRole,
 };
