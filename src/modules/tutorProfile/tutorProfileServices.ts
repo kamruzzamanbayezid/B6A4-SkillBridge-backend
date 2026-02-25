@@ -1,7 +1,6 @@
 import { prisma } from "../../lib/prisma";
 
 const getAllTutors = async (payload: { search: string }) => {
-  console.log(payload?.search);
   const result = await prisma.tutorProfile.findMany({
     where: {
       subject: {
@@ -13,6 +12,21 @@ const getAllTutors = async (payload: { search: string }) => {
   return result;
 };
 
+const getSingleTutor = async (tutorId: string) => {
+  const result = await prisma.tutorProfile.findUniqueOrThrow({
+    where: {
+      id: tutorId,
+    },
+    include: {
+      user: true,
+      category: true,
+      availabilitySlots: true,
+    },
+  });
+  return result;
+};
+
 export const tutorProfileServices = {
   getAllTutors,
+  getSingleTutor,
 };

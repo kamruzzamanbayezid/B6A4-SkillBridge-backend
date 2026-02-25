@@ -3,7 +3,7 @@ import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
 const getAllTutors = async (query: any) => {
-  const { search, category, rating, price } = query;
+  const { search, categoryId, rating, price } = query;
 
   let andConditions: UserWhereInput[] = [];
 
@@ -18,9 +18,9 @@ const getAllTutors = async (query: any) => {
     });
   }
 
-  if (category) {
+  if (categoryId) {
     andConditions.push({
-      tutorProfile: { category: category },
+      tutorProfile: { categoryId },
     });
   }
 
@@ -41,7 +41,11 @@ const getAllTutors = async (query: any) => {
       role: "TUTOR",
       AND: andConditions,
     },
-    include: { tutorProfile: true },
+    include: {
+      tutorProfile: {
+        include: { category: true },
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
 
@@ -58,7 +62,7 @@ const getAllUsersOrRole = async (role: UserRole) => {
     },
     orderBy: {
       tutorProfile: {
-        averageRating: "asc",
+        averageRating: "desc",
       },
     },
   });
