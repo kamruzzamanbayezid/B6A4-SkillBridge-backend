@@ -1,0 +1,147 @@
+[
+  {
+    "id": "861386f7-2a76-417e-90e3-5e97ffb210f2",
+    "name": "Kamruzzaman Bayezid",
+    "email": "bayezid.dev@gmail.com",
+    "password": "$2b$08$3N9l1ZUAVJMIQmTHcEznTeqpCSTIM6WAIATybMznF78Hi8r0mDIMS",
+    "role": "TUTOR",
+    "isBanned": false,
+    "image": "https://i.ibb.co.com/v4BcgDVD/468720475-1340083213824305-1886033907171679491-n.jpg",
+    "createdAt": "2026-02-26T05:50:29.243Z",
+    "updatedAt": "2026-02-26T05:50:29.243Z",
+    "tutorProfile": {
+      "id": "b1322757-43b0-4159-813e-1069ba1c0237",
+      "userId": "861386f7-2a76-417e-90e3-5e97ffb210f2",
+      "bio": "Full Stack developer teaching MERN stack and modern web development.",
+      "subject": "Web Development",
+      "experienceYears": 6,
+      "hourlyRate": 1800,
+      "averageRating": 3.5,
+      "reviewCount": 0,
+      "categoryId": "eeddf321-1946-4970-8334-4373e396a46e",
+      "createdAt": "2026-02-26T05:50:29.248Z",
+      "updatedAt": "2026-02-26T05:50:29.248Z",
+      "category": {
+        "id": "eeddf321-1946-4970-8334-4373e396a46e",
+        "name": "Programming",
+        "createdAt": "2026-02-26T05:47:17.906Z"
+      }
+    }
+  },
+  {
+    "id": "3493a14e-9aac-42aa-9e5d-7263b7d7d2cd",
+    "name": "Sabbir Ahmed",
+    "email": "sabbir.python@gmail.com",
+    "password": "$2b$08$QkN4kOfEGoawWeJst0djDe.FpEWKQHoAoq8724uxDQH.BOFVUtFxy",
+    "role": "TUTOR",
+    "isBanned": false,
+    "image": "https://i.ibb.co.com/dGJs9bB/profile.jpg",
+    "createdAt": "2026-02-26T05:49:36.334Z",
+    "updatedAt": "2026-02-26T05:49:36.334Z",
+    "tutorProfile": {
+      "id": "28cd7f06-332d-4416-8b25-cd7a4b77f564",
+      "userId": "3493a14e-9aac-42aa-9e5d-7263b7d7d2cd",
+      "bio": "Python developer teaching backend development and automation.",
+      "subject": "Python Programming",
+      "experienceYears": 4,
+      "hourlyRate": 1500,
+      "averageRating": 4,
+      "reviewCount": 0,
+      "categoryId": "eeddf321-1946-4970-8334-4373e396a46e",
+      "createdAt": "2026-02-26T05:49:36.339Z",
+      "updatedAt": "2026-02-26T05:49:36.339Z",
+      "category": {
+        "id": "eeddf321-1946-4970-8334-4373e396a46e",
+        "name": "Programming",
+        "createdAt": "2026-02-26T05:47:17.906Z"
+      }
+    }
+  },
+  {
+    "id": "722f7ffd-aa84-46ac-88f6-91411186ab7e",
+    "name": "Fahim Rahman",
+    "email": "fahim.science@gmail.com",
+    "password": "$2b$08$23YjlWzJInapu8WWjKocj.iP3DzwEP8BeT3W8TS9fRLz.fxEgLKpW",
+    "role": "TUTOR",
+    "isBanned": false,
+    "image": "https://i.ibb.co.com/0YCw3SF/instructor-1.png",
+    "createdAt": "2026-02-26T05:49:15.918Z",
+    "updatedAt": "2026-02-26T05:49:15.918Z",
+    "tutorProfile": {
+      "id": "35bc6347-999b-4844-a0b4-b3b819742517",
+      "userId": "722f7ffd-aa84-46ac-88f6-91411186ab7e",
+      "bio": "Physics and Chemistry tutor with strong conceptual teaching style.",
+      "subject": "General Science",
+      "experienceYears": 3,
+      "hourlyRate": 900,
+      "averageRating": 5,
+      "reviewCount": 0,
+      "categoryId": "8d662883-e801-40bf-9d50-1941870fb1cd",
+      "createdAt": "2026-02-26T05:49:15.923Z",
+      "updatedAt": "2026-02-26T05:49:15.923Z",
+      "category": {
+        "id": "8d662883-e801-40bf-9d50-1941870fb1cd",
+        "name": "Science",
+        "createdAt": "2026-02-26T05:46:57.956Z"
+      }
+    }
+  },
+  {
+    "id": "1658d0ff-51eb-4669-962f-2f4cdccc7879",
+    "name": "Nusrat Jahan",
+    "email": "nusrat.math@gmail.com",
+    "password": "$2b$08$Fen2XhFp2IXMINZij8bsyO/ezqtJeDsmK2L8xwChMnK/h38tur.eO",
+    "role": "TUTOR",
+    "isBanned": false,
+    "image": "https://i.ibb.co.com/qRYVm2S/Welcoming-Emily-Sehmar-Bee-To-The-Team-At-COVVI.jpg",
+    "createdAt": "2026-02-26T05:48:52.324Z",
+    "updatedAt": "2026-02-26T05:48:52.324Z",
+    "tutorProfile": {
+      "id": "e3193386-eefe-4a2d-9873-fadb8ce707b4",
+      "userId": "1658d0ff-51eb-4669-962f-2f4cdccc7879",
+      "bio": "University level Math tutor focusing on Linear Algebra and Statistics.",
+      "subject": "Advanced Mathematics",
+      "experienceYears": 4,
+      "hourlyRate": 1200,
+      "averageRating": 3,
+      "reviewCount": 0,
+      "categoryId": "ca87b842-729f-42c5-878f-0f2ad2ee341f",
+      "createdAt": "2026-02-26T05:48:52.329Z",
+      "updatedAt": "2026-02-26T05:48:52.329Z",
+      "category": {
+        "id": "ca87b842-729f-42c5-878f-0f2ad2ee341f",
+        "name": "Mathematics",
+        "createdAt": "2026-02-26T05:47:23.828Z"
+      }
+    }
+  },
+  {
+    "id": "b3e8858d-a8e6-47a3-a002-a6bfe8259abe",
+    "name": "Arif Hossain",
+    "email": "arif.math@gmail.com",
+    "password": "$2b$08$wqNU6zCWMJUl0eISFYjw1e9d9gmSB9p1VfwbI7L0ny.usSq.f3EBW",
+    "role": "TUTOR",
+    "isBanned": false,
+    "image": "https://i.ibb.co.com/98LZXwL/teacher.jpg",
+    "createdAt": "2026-02-26T05:48:13.629Z",
+    "updatedAt": "2026-02-26T05:48:13.629Z",
+    "tutorProfile": {
+      "id": "4b4530af-dc3b-4858-aaaa-38c4b3a3993a",
+      "userId": "b3e8858d-a8e6-47a3-a002-a6bfe8259abe",
+      "bio": "Experienced Mathematics tutor specializing in Algebra and Calculus.",
+      "subject": "Mathematics",
+      "experienceYears": 5,
+      "hourlyRate": 800,
+      "averageRating": 4.5,
+      "reviewCount": 0,
+      "categoryId": "ca87b842-729f-42c5-878f-0f2ad2ee341f",
+      "createdAt": "2026-02-26T05:48:13.642Z",
+      "updatedAt": "2026-02-26T05:48:13.642Z",
+      "category": {
+        "id": "ca87b842-729f-42c5-878f-0f2ad2ee341f",
+        "name": "Mathematics",
+        "createdAt": "2026-02-26T05:47:23.828Z"
+      }
+    }
+  }
+]

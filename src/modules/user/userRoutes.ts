@@ -3,7 +3,8 @@ import { UserControllers } from "./user.controller";
 
 const router = express.Router();
 
-router.get("/", UserControllers.getAllTutors);
+// router.get("/", UserControllers.getAllTutors);
+router.get("/", UserControllers.getAllUsers);
 router.get("/by-role", UserControllers.getAllUsersOrRole);
 router.get("/student-count", UserControllers.getStudentCount);
 

@@ -2,6 +2,11 @@ import { UserRole } from "../../../generated/prisma/enums";
 import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
+const getAllUsers = async () => {
+  const result = await prisma.user.findMany();
+  return result;
+};
+
 const getAllTutors = async (query: any) => {
   const { search, categoryId, rating, price } = query;
 
@@ -82,4 +87,5 @@ export const UserServices = {
   getAllTutors,
   getStudentCount,
   getAllUsersOrRole,
+  getAllUsers,
 };

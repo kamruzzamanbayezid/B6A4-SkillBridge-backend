@@ -19,70 +19,91 @@ enum BookingStatus {
   CANCELLED
 }
 
+enum SlotStatus {
+  AVAILABLE
+  BOOKED
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
   email    String   @unique
   password String
   role     UserRole
-  isBanned Boolean  @default(false)
   image    String?
+  isBanned Boolean  @default(false)
 
-  // Relations
   tutorProfile      TutorProfile?
   bookingsAsStudent Booking[]     @relation("StudentBookings")
   bookingsAsTutor   Booking[]     @relation("TutorBookings")
-  reviewsGiven      Review[]
+  reviews           Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([role])
+  @@index([isBanned])
+  @@map("users")
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String @unique
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
 
   tutors TutorProfile[]
 
-  createdAt DateTime @default(now())
+  @@map("categories")
 }
 
 model TutorProfile {
-  id String @id @default(uuid())
-
+  id     String @id @default(uuid())
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  bio             String
-  subject         String
+  bio             String?
   experienceYears Int
   hourlyRate      Float
-
-  averageRating Float @default(0)
-  reviewCount   Int   @default(0)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  availability Availability[]
-  reviews      Review[]
-  bookings     Booking[]
+  averageRating Float @default(0)
+  reviewCount   Int   @default(0)
+
+  slots   Slot[]
+  reviews Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([averageRating])
+  @@index([hourlyRate])
+  @@map("tutor_profiles")
 }
 
-model Availability {
+model Slot {
   id String @id @default(uuid())
 
-  tutorId String
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  tutorProfileId String
+  tutorProfile   TutorProfile @relation(fields: [tutorProfileId], references: [id], onDelete: Cascade)
 
   day       String
   startTime DateTime
   endTime   DateTime
 
+  status SlotStatus @default(AVAILABLE)
+
+  booking Booking?
+
   createdAt DateTime @default(now())
+
+  @@index([tutorProfileId])
+  @@index([status])
+  @@index([day])
+  @@index([tutorProfileId, day])
+  @@map("slots")
 }
 
 model Booking {
@@ -94,18 +115,24 @@ model Booking {
   tutorId String
   tutor   User   @relation("TutorBookings", fields: [tutorId], references: [id], onDelete: Cascade)
 
-  tutorProfileId String
-  tutorProfile   TutorProfile @relation(fields: [tutorProfileId], references: [id])
-
-  startTime DateTime
-  endTime   DateTime
+  slotId String @unique
+  slot   Slot   @relation(fields: [slotId], references: [id], onDelete: Cascade)
 
   status BookingStatus @default(CONFIRMED)
+
+  priceSnapshot Float
 
   review Review?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([studentId])
+  @@index([tutorId])
+  @@index([status])
+  @@index([tutorId, status])
+  @@index([studentId, status])
+  @@map("bookings")
 }
 
 model Review {
@@ -124,4 +151,8 @@ model Review {
   comment String?
 
   createdAt DateTime @default(now())
+
+  @@index([tutorProfileId])
+  @@index([studentId])
+  @@map("reviews")
 }

@@ -20,7 +20,7 @@ const getSingleTutor = async (tutorId: string) => {
     include: {
       user: true,
       category: true,
-      availabilitySlots: true,
+      availability: true,
     },
   });
   return result;
