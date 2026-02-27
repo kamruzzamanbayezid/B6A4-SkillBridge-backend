@@ -5,7 +5,7 @@ import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-router.get("/", auth(UserRole.ADMIN), tutorProfileController.getAllTutors);
+router.get("/", tutorProfileController.getAllTutors);
 router.get("/tutor-profile/:tutorId", tutorProfileController.getSingleTutor);
 
 export const tutorProfileRoutes = router;

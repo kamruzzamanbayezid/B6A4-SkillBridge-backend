@@ -3,7 +3,17 @@ import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
 const getAllUsers = async () => {
-  const result = await prisma.user.findMany();
+  const result = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      image: true,
+      isBanned: true,
+    },
+  });
+
   return result;
 };
 
@@ -17,7 +27,7 @@ const getAllTutors = async (query: any) => {
       OR: [
         { name: { contains: search, mode: "insensitive" } },
         {
-          tutorProfile: { subject: { contains: search, mode: "insensitive" } },
+          tutorProfile: { subjects: { contains: search, mode: "insensitive" } },
         },
       ],
     });

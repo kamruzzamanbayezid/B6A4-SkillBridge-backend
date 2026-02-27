@@ -23,7 +23,7 @@ const createUser = async (payload: any) => {
 
       await tx.tutorProfile.create({
         data: {
-          subject: tutorProfile?.subject,
+          subjects: tutorProfile?.subjects,
           experienceYears: tutorProfile?.experienceYears,
           categoryId: tutorProfile?.categoryId,
           userId: newUser?.id,

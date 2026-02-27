@@ -7,9 +7,8 @@ const getAllTutors = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const search = (req?.query?.search as string) || "";
   try {
-    const result = await tutorProfileServices.getAllTutors({ search });
+    const result = await tutorProfileServices.getAllTutors(req?.query);
     sendResponse(res, {
       statusCode: 200,
       success: true,

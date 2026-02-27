@@ -64,6 +64,7 @@ model TutorProfile {
   bio             String?
   experienceYears Int
   hourlyRate      Float
+  subjects        String  @default("")
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
